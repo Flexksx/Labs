@@ -1,4 +1,4 @@
-test = "xxxx"
+test = "aanswer"
 substr = {}
 for i in range(len(test) + 1):
     for j in range(len(test) + 1):
@@ -29,8 +29,8 @@ maxlen=0
 
 #second programme
 
-for x in substr:
-    print(substr)
+# for x in substr:
+#     print(substr)
 
 for x in substr:
     repeats=False
