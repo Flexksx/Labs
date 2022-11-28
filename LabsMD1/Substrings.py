@@ -1,4 +1,4 @@
-test = "aanswer"
+test = input()
 substr = {}
 for i in range(len(test) + 1):
     for j in range(len(test) + 1):

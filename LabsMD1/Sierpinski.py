@@ -1,6 +1,8 @@
 import turtle as t
 
 t.speed(0)
+
+
 def sierpinski(size, d):
     if d == 0:
         for i in range(0, 3):
@@ -20,7 +22,6 @@ def sierpinski(size, d):
         t.rt(60)
 
 
-
-d=int(input())
+d = int(input())
 sierpinski(400, d)
 t.Screen().exitonclick()

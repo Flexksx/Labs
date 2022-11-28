@@ -4,18 +4,16 @@
 # psize = 1
 # comma = 0
 # pset = []
-#
+# set=[]
 # for i in range(len(x)):
 #     if x[i] == ',':
 #         card += 1
-#     if x[i] == '[':
-#         bracket1=i
-#     if x[i]==']' and bracket1 < i
+#     if x[i]=='[':
+#         bracket=i
+#     if x[i]==']' and bracket<i:
 #
 #
 # psize = pow(2, card + 1)
-#
-# set = []
 #
 # for i in range(len(x)):
 #     if x[i] == ',':
