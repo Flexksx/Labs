@@ -9,7 +9,9 @@ def xnor(a,b):
         b=False
     c=((a and b) or ((not a) and (not b)))
     print(c)
-    
+
+
 a=input()
 b=input()
+
 xnor(a,b)
