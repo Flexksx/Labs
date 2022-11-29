@@ -6,10 +6,10 @@ def revolveradj(bllt, chmb):
     for i in range(chmb):
         pist.append(0)
     load = random.randint(1, chmb)
-    if (load == chmb):
+    if load == chmb:
         pist[0] = 1
         pist[chmb - 1] = 1
-    elif (load != chmb):
+    elif load != chmb:
         pist[load - 1] = 1
         pist[load] = 1
     return pist
@@ -82,8 +82,8 @@ def nospinnadj(bullets, chambs, tries):
 
 
 def printadj(a, b, tries):
-    print("spin,", a, "adjacent bullets in", b, "chambers: ", spinadj(a, b, tries));
-    print("no spin,", a, "adjacent bullets in", b, "chambers: ", nospinadj(a, b, tries));
+    print("spin,", a, "adjacent bullets in", b, "chambers: ", spinadj(a, b, tries))
+    print("no spin,", a, "adjacent bullets in", b, "chambers: ", nospinadj(a, b, tries))
 
 
 def printnonadj(a, b, tries):

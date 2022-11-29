@@ -7,10 +7,10 @@ def flip():
     while coin == 1:
         wins += 1
         coin = random.uniform(0, 1)
-        if coin<0.5:
-            coin=0
+        if coin < 0.5:
+            coin = 0
         else:
-            coin=1
+            coin = 1
     return pow(2, wins)
 
 
