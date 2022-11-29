@@ -4,7 +4,6 @@ def game():
 	anascore=0
 	danscore=0
 	anaturn=1
-	anawin=0
 	while(anascore<=25 and danscore<=25):
 		while anaturn:
 			x=random.uniform(0,1)

@@ -14,7 +14,7 @@ def makeevalstr(temp, vals, vars):
     temp = ''.join(temp)
     return temp
 
-inputstr="(!x + y) * z + (!z * y * k)"
+inputstr="(!x + y) * z + (!z * !y * k + a + !c + d)"
 
 #DO NOT USE A,N,D,O,T,R AS VARIABLES
 

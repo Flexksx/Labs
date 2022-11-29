@@ -29,9 +29,9 @@
 #
 # print(set)
 
-set=[1,2,[1]]
+set=[1,2,[1],[]]
 psize=pow(2,len(set))
-pset=[]
+powerset=[]
 print(set)
 def getnull(set):
     val = ""
@@ -42,13 +42,13 @@ def getnull(set):
 
 for i in range(psize):
     subset = []
-    vals = getnull(set)
-    valsadd = str(bin(pow(2, len(set)) - i)).removeprefix("0b")
-    vals = vals + valsadd
-    vals = list(vals[len(valsadd):])
-    for j in range(len(vals)):
-        if vals[j] == '1':
+    binvals = getnull(set)
+    binvalsadd = str(bin(pow(2, len(set)) - i)).removeprefix("0b")
+    binvals = binvals + binvalsadd
+    binvals = list(binvals[len(binvalsadd):])
+    for j in range(len(binvals)):
+        if binvals[j] == '1':
             subset.append(set[j])
-    pset.append(subset)
+    powerset.append(subset)
 
-print(pset)
+print(powerset)

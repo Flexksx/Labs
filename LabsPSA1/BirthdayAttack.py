@@ -11,7 +11,7 @@ hashdict = {}
 colnr = 0
 
 while colnr < 10:
-    samplestr=ranstr()
+    samplestr = ranstr()
     hashstr = hashlib.md5(samplestr.encode()).hexdigest()
     slicehash = hashstr[:10]
     if slicehash in hashdict:
