@@ -3,14 +3,16 @@ import random
 
 def do():
     x1 = random.uniform(0, 1)
-    x2 = random.uniform(0, 1)
-    if x1 > x2:
-        temp = x1
-        x1 = x2
-        x2 = temp
     a = x1
-    b = x2 - a
-    c = 1 - x2
+    b = 1 - a
+    if a > b:
+        x2 = random.uniform(0, a)
+        c = a - x2
+        a -= c
+    else:
+        x2 = random.uniform(0, b)
+        c = b - x2
+        b -= c
     if a + b > c and b + c > a and a + c > b:
         return 1
     else:
