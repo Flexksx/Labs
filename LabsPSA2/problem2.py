@@ -9,8 +9,8 @@ def do():
         x1 = x2
         x2 = temp
     a = x1
-    b = x2 - x1
-    c = 1 - (a + b)
+    b = x2 - a
+    c = 1 - x2
     if a + b > c and b + c > a and a + c > b:
         return 1
     else:
