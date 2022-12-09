@@ -3,10 +3,9 @@ import math
 
 
 def getpoint():
-    r = 1
     theta = random.uniform(0, math.pi * 2)
-    x = r * math.cos(theta)
-    y = r * math.sin(theta)
+    x = math.cos(theta)
+    y = math.sin(theta)
     return x, y
 
 
@@ -15,22 +14,21 @@ def distance(x1, y1, x2, y2):
 
 
 def isacute(a, b, c):
-    if a**2+b**2>c**2:
+    if a ** 2 + b ** 2 > c ** 2 and a ** 2 + c ** 2 > b ** 2 and c ** 2 + b ** 2 > a ** 2:
         return True
     else:
         return False
 
 
-prob=0
-tries = 10000
+prob = 0
+tries = 100000
 for i in range(tries):
     p1 = getpoint()
     p2 = getpoint()
     p3 = getpoint()
-    a = distance(p1[0], p1[1], p2[0], p2[1])
-    b = distance(p1[0], p1[1], p3[0], p3[1])
-    c = distance(p1[0], p2[1], p3[0], p3[1])
-    if isacute(a,b,c):
-      prob+=1
+    sides = [distance(p1[0], p1[1], p2[0], p2[1]), distance(p1[0], p1[1], p3[0], p3[1]), distance(p2[0], p2[1], p3[0], p3[1])]
+    sides.sort()
+    if isacute(sides[0], sides[1], sides[2]):
+        prob += 1
 
-print(prob/tries)
+print(prob / tries)
