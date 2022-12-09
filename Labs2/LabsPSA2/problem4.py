@@ -14,7 +14,7 @@ def distance(x1, y1, x2, y2):
 
 
 def isacute(a, b, c):
-    if a ** 2 + b ** 2 > c ** 2 and a ** 2 + c ** 2 > b ** 2 and c ** 2 + b ** 2 > a ** 2:
+    if a ** 2 + b ** 2 > c ** 2:
         return True
     else:
         return False
