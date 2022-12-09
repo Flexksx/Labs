@@ -45,25 +45,16 @@ def repeating(a):
     return True
 
 
-def length(a):
-    if len(a) < 8:
-        return 8 - len(a)
-    elif len(a) > 20:
-        return len(a) - 25
-    else:
-        return True
-
-
-def removerepeats(a):
+def countrepeats(a):
     a = list(a)
-    for i in range(len(a) - 3):
+    count = 0
+    for i in range(len(a) - 2):
         if a[i] == a[i + 1] == a[i + 2]:
-            a.remove(a[i + 2])
+            count += 1
+    return count
 
-    return ''.join(a)
 
-
-password = "pulaaaa"
+password = input()
 # print(lowercase(password))
 # print(uppercase(password))
 # print(digit(password))
@@ -72,6 +63,13 @@ password = "pulaaaa"
 # print(length(password))
 
 steps = 0
+
+if len(password) < 8:
+    print(abs(8-len(password)))
+    exit()
+elif len(password) > 20:
+    print(abs(20-len(password)))
+    exit()
 if not lowercase(password):
     steps += 1
 if not uppercase(password):
@@ -80,7 +78,10 @@ if not digit(password):
     steps += 1
 if not symbol(password):
     steps += 1
-if repeating(password):
-    print("Hi")
+if not repeating(password):
+    steps += countrepeats(password)
 
-print(removerepeats(password))
+if steps!=0:
+    print(steps)
+else:
+    print("G00D")
