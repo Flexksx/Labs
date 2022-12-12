@@ -54,7 +54,7 @@ def countrepeats(a):
     return count
 
 
-password = "VeryLong12Paaaaaaaassswwoooord"
+password = input()
 # print(lowercase(password))
 # print(uppercase(password))
 # print(digit(password))
@@ -63,7 +63,6 @@ password = "VeryLong12Paaaaaaaassswwoooord"
 # print(length(password))
 
 steps = 0
-print(len(password))
 if len(password) < 8:
     steps += abs(8 - len(password))
     if not repeating(password):

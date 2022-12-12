@@ -10,7 +10,8 @@ def prob9(tries):
     for i in range(tries):
         roll1 = dice()
         roll2 = dice()
-        if roll1 + roll2 == 9:
+        roll3= dice()
+        if roll1 + roll2 + roll3 == 9:
             prob += 1
     return prob / tries
 
