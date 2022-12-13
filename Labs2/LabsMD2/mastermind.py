@@ -17,26 +17,16 @@ greetinglabel.grid(column=0, row=0)
 
 # Player input
 
-def getbox1():
-    global box1
-    box1=StringVar()
-    box1=Spinbox.get()
-
-def getbox2():
-    global box2
-    box2= StringVar()
-    box2=Spinbox.get()
-
-def getbox3():
-    global box3
-    box3= StringVar()
-    box3=Spinbox.get()
-
-def getbox4():
-    global box4
-    box4 = StringVar()
-    box4=Spinbox.get()
-
+global box1
+global box2
+global box3
+global box4
+def getvals():
+    box1=spinbox1.get()
+    box2=spinbox2.get()
+    box3=spinbox3.get()
+    box4=spinbox4.get()
+    print(box1,box2,box3,box4)
 
 tryframes = []
 for i in range(12):
@@ -45,10 +35,10 @@ for i in range(12):
 
 inputframe = Frame(window)
 inputframe.grid(column=0, row=1)
-spinbox1 = Spinbox(inputframe, values=colors, font=("Bahnschrift", spinsize), command=getbox1()).pack(side=RIGHT)
-spinbox2 = Spinbox(inputframe, values=colors, font=("Bahnschrift", spinsize), command=getbox2()).pack(side=RIGHT)
-spinbox3 = Spinbox(inputframe, values=colors, font=("Bahnschrift", spinsize), command=getbox3()).pack(side=RIGHT)
-spinbox4 = Spinbox(inputframe, values=colors, font=("Bahnschrift", spinsize), command=getbox4()).pack(side=RIGHT)
+spinbox1 = Spinbox(inputframe, values=colors, font=("Bahnschrift", spinsize)).pack(side=RIGHT)
+spinbox2 = Spinbox(inputframe, values=colors, font=("Bahnschrift", spinsize)).pack(side=RIGHT)
+spinbox3 = Spinbox(inputframe, values=colors, font=("Bahnschrift", spinsize)).pack(side=RIGHT)
+spinbox4 = Spinbox(inputframe, values=colors, font=("Bahnschrift", spinsize)).pack(side=RIGHT)
 
 trybutton = Button(inputframe, text="TRY!", font=("Bahnschrift", spinsize)).pack(side=LEFT)
 
