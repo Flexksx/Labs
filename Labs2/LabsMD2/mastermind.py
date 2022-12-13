@@ -1,34 +1,45 @@
 import random
+from tkinter import *
 
-num = random.randrange(1000, 10000)
-n = int(input("Guess the number: XXXX"))
-if (n == num):
-    print("You won! You're a Mastermind!")
-else:
-    ctr = 0
-    while (n != num):
-        ctr += 1
-        count = 0
-        n = str(n)
-        num = str(num)
-        correct = ['X'] * 4
-        for i in range(0, 4):
-            if (n[i] == num[i]):
-                count += 1
-                correct[i] = n[i]
-            else:
-                continue
-        if (count < 4) and (count != 0):
-            print("Not really. But you guessed ",count, " digit(s) correct!")
-            print("These digits are correct: ")
-            for k in correct:
-                print(k, end=' ')
-            print('\n')
-            print('\n')
-            n = int(input("Enter next numbers: "))
-        elif count == 0:
-            print("All digits are wrong.")
-            n = int(input("Enter next numbers: "))
-    if n == num:
-        print("You became a Mastermind!")
-        print("It took ", ctr, "tries.")
+window=Tk()
+window.geometry("500x300")
+window.title("Mastermind")
+label1=Label(window, text="Guess the number!", font=("Times New Roman",32), padx=80)
+label1.grid(column=0, row=0)
+labelnum = Label(window, text="XXXX", font=("Times New Roman", 24), padx=100, pady=100)
+labelnum.grid(column=0, row=1)
+window.mainloop()
+
+
+num = str(random.randint(1000,9999))
+def getblank(num):
+    show=[]
+    for i in range(len(num)):
+        show.append('X')
+    return ''.join(show)
+
+show=getblank(num)
+
+gamegoing=True
+steps=0
+print(num)
+while gamegoing:
+    show=getblank(num)
+    x = input()
+    for i in range(len(x)):
+        if num[i]==x[i]:
+            show=list(show)
+            show[i]=num[i]
+            show=''.join(show)
+    print(show)
+
+    steps+=1
+    if show==num:
+        print("You won in", steps,"steps!")
+        gamegoing=False
+    if x=='stop':
+        gamegoing=False
+
+
+
+
