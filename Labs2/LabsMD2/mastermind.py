@@ -1,5 +1,6 @@
 import random
 from tkinter import *
+from tkinter import ttk
 
 # Greeting stuff
 colors = ['Red', 'Green', 'Yellow', 'Purple', 'Blue', 'Cyan']
@@ -17,32 +18,31 @@ greetinglabel.grid(column=0, row=0)
 
 # Player input
 
-global box1
-global box2
-global box3
-global box4
-def getvals():
-    box1=spinbox1.get()
-    box2=spinbox2.get()
-    box3=spinbox3.get()
-    box4=spinbox4.get()
-    print(box1,box2,box3,box4)
+
 
 tryframes = []
 for i in range(12):
     tryframes.append(Frame(window))
     tryframes[i].grid(column=0, row=i + 2)
 
-inputframe = Frame(window)
-inputframe.grid(column=0, row=1)
-spinbox1 = Spinbox(inputframe, values=colors, font=("Bahnschrift", spinsize)).pack(side=RIGHT)
-spinbox2 = Spinbox(inputframe, values=colors, font=("Bahnschrift", spinsize)).pack(side=RIGHT)
-spinbox3 = Spinbox(inputframe, values=colors, font=("Bahnschrift", spinsize)).pack(side=RIGHT)
-spinbox4 = Spinbox(inputframe, values=colors, font=("Bahnschrift", spinsize)).pack(side=RIGHT)
 
-trybutton = Button(inputframe, text="TRY!", font=("Bahnschrift", spinsize)).pack(side=LEFT)
+box1 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize))
+box1.grid(column=0,row=1)
+box2 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize))
+box2.grid(column=1,row=1)
+box3 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize))
+box3.grid(column=2,row=1)
+box4 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize))
+box4.grid(column=3,row=1)
 
-# Player input
+def printvals():
+    print(box1.get())
+    print(box2.get())
+    print(box3.get())
+    print(box4.get())
+
+trybutton = Button(window, text="TRY!", font=("Bahnschrift", spinsize), command=printvals())
+trybutton.grid(column=4, row=1)
 
 
 window.mainloop()
