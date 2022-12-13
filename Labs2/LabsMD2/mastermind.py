@@ -26,23 +26,25 @@ for i in range(12):
     tryframes[i].grid(column=0, row=i + 2)
 
 
-box1 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize))
+box1 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize), wrap=True)
 box1.grid(column=0,row=1)
-box2 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize))
+box2 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize), wrap=True)
 box2.grid(column=1,row=1)
-box3 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize))
+box3 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize), wrap=True)
 box3.grid(column=2,row=1)
-box4 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize))
+box4 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize), wrap=True)
 box4.grid(column=3,row=1)
 
 def printvals():
-    print(box1.get())
-    print(box2.get())
-    print(box3.get())
-    print(box4.get())
+    vals=[]
+    vals.append(box1.get())
+    vals.append(box2.get())
+    vals.append(box3.get())
+    vals.append(box4.get())
+    print(vals)
 
-trybutton = Button(window, text="TRY!", font=("Bahnschrift", spinsize), command=printvals())
-trybutton.grid(column=4, row=1)
+trybutton = Button(window, text="TRY!", font=("Bahnschrift", spinsize), command=lambda: printvals())
+trybutton.grid(column=4,row=1)
 
 
 window.mainloop()
