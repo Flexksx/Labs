@@ -9,7 +9,7 @@ window.geometry("700x700")
 window.title("MastermindFUCK")
 greetingframe = Frame(window)
 greetinglabel = Label(greetingframe, text="Try to break the code! There are 6 possible colors.", font=("Bahnschrift", 20)).pack()
-tryframes=[]
+tryframes = []
 box1 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize), wrap=True)
 box1.grid(column=0, row=1)
 box2 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize), wrap=True)
@@ -20,6 +20,8 @@ box4 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize), wrap=True)
 box4.grid(column=3, row=1)
 
 print(code)
+
+
 def getvals():
     vals = []
     vals.append(box1.get())
@@ -28,31 +30,32 @@ def getvals():
     vals.append(box4.get())
     return vals
 
+
 def givepins(tempcode, ans):
-    pins=[]
+    pins = []
     for i in range(len(ans)):
         pins.append('Black')
     for i in range(len(ans)):
-        if ans[i]==tempcode[i]:
+        if ans[i] == tempcode[i]:
             pins.remove('Black')
             pins.append('Red')
     return pins
 
-framecount=0
-def check():
-    vals=getvals()
+tries=0
+
+def check(tries):
+    vals = getvals()
     result = givepins(code, vals)
     print(result)
     tryframes.append(Frame(window))
-    tryframes[framecount].grid(column=0, row=framecount+2)
-    for j in range(0,4):
-        tryframes[framecount][j]=Label(tryframes[framecount], text='O', fg=result[j], font=("Bahnschrift",10)).pack()
-    return result
+    tryframes[tries].grid(column=0, row=tries + 2)
+    for j in range(0, 4):
+        tryframes[tries][j] = Label(tryframes[tries], text='O', fg=result[j], font=("Bahnschrift", 10)).pack(side=LEFT)
+    tries += 1
+    print(tries)
 
 
-trybutton = Button(window, text="TRY!", font=("Bahnschrift", spinsize), command=lambda: check())
+trybutton = Button(window, text="TRY!", font=("Bahnschrift", spinsize), command=lambda: [check(tries), print(tries)])
 trybutton.grid(column=4, row=1)
 
 window.mainloop()
-
-
