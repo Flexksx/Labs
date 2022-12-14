@@ -51,11 +51,10 @@ def check(tries):
     tryframes[tries].grid(column=0, row=tries + 2)
     for j in range(0, 4):
         tryframes[tries][j] = Label(tryframes[tries], text='O', fg=result[j], font=("Bahnschrift", 10)).pack(side=LEFT)
-    tries += 1
     print(tries)
 
 
-trybutton = Button(window, text="TRY!", font=("Bahnschrift", spinsize), command=lambda: [check(tries), print(tries)])
+trybutton = Button(window, text="TRY!", font=("Bahnschrift", spinsize), command=lambda: check(tries))
 trybutton.grid(column=4, row=1)
 
 window.mainloop()
