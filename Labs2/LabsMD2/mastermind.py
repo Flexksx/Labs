@@ -42,6 +42,9 @@ def givepins(tempcode, ans):
     return pins
 
 tries=0
+def inc(value):
+    global tries
+    tries += value
 
 def check(tries):
     vals = getvals()
@@ -55,7 +58,7 @@ def check(tries):
     print(tries)
 
 
-trybutton = Button(window, text="TRY!", font=("Bahnschrift", spinsize), command=lambda: [check(tries), print(tries)])
+trybutton = Button(window, text="TRY!", font=("Bahnschrift", spinsize), command=lambda: [check(tries), inc(1)])
 trybutton.grid(column=4, row=1)
 
 window.mainloop()
