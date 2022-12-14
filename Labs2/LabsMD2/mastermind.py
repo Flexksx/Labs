@@ -1,6 +1,5 @@
 import random
 from tkinter import *
-from PIL import Image, ImageTk
 
 window = Tk()
 colors = ['Red', 'Green', 'Yellow', 'Purple', 'Blue', 'Cyan']
