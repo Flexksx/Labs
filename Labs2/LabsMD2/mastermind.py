@@ -88,6 +88,7 @@ def newgame():
     code = random.choices(colors, k=4)
     global winframe
     winframe.destroy()
+    tries=0
     print(code)
 
 trybutton = Button(window, text="TRY!", font=("Bahnschrift", spinsize), command=lambda: [check(tries), inc(1)])
