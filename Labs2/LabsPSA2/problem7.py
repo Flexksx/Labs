@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 tries = 1000
 distribution = {}
 
-for i in range(35,65):
-    distribution.update({i:0})
+for i in range(35, 65):
+    distribution.update({i: 0})
 
 for i in range(tries):
     heads = 0

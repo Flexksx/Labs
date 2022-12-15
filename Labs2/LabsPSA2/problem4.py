@@ -6,7 +6,7 @@ def getpoint():
     theta = random.uniform(0, math.pi * 2)
     x = math.cos(theta)
     y = math.sin(theta)
-    return x, y
+    return [x, y]
 
 
 def distance(x1, y1, x2, y2):
