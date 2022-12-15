@@ -23,8 +23,6 @@ box4.grid(column=3, row=1)
 print(code)
 
 
-
-
 def getvals():
     vals = []
     vals.append(box1.get())
@@ -36,17 +34,17 @@ def getvals():
 
 def givepins(code, ans):
     pins = []
-    tempcode=code
-    count=0
+    tempcode = code
+    count = 0
     for i in range(len(ans)):
         pins.append('Black')
     for i in range(len(ans)):
         if ans[i] == tempcode[i]:
             pins.remove('Black')
             pins.append('Red')
-    for  i in range(len(ans)):
-            if ans[i] in tempcode and not ans[i]==tempcode[i]:
-                count+=1
+    for i in range(len(ans)):
+        if ans[i] in tempcode and not ans[i] == tempcode[i]:
+            count += 1
     for i in range(count):
         pins.append('Yellow')
         pins.remove('Black')
@@ -54,7 +52,8 @@ def givepins(code, ans):
 
 
 tries = 0
-winframe=Frame(window)
+winframe = Frame(window)
+
 
 def inc(value):
     global tries
@@ -69,27 +68,30 @@ def check(tries):
     for j in range(0, 4):
         tryframes[tries][j] = Label(tryframes[tries], text='O', fg=result[j], font=("Bahnschrift", 20)).pack(side=LEFT)
     tryframes[tries][5] = Label(tryframes[tries], text='Previous try: ', font=("Bahnschrift", 20)).pack(side=LEFT)
-    for j in range(6,10):
-        tryframes[tries][j] = Label(tryframes[tries], text='O', fg=vals[j-6], font=("Bahnschrift", 20)).pack(side=LEFT)
+    for j in range(6, 10):
+        tryframes[tries][j] = Label(tryframes[tries], text='O', fg=vals[j - 6], font=("Bahnschrift", 20)).pack(
+            side=LEFT)
     tries += 1
     if result == ['Red', 'Red', 'Red', 'Red']:
         global winframe
-        winframe.grid(column=0, row=tries+3, columnspan=4)
-        winlabel=Label(winframe, text="Conratulations! You won!", font=("Bahnschrift", 30)).pack()
-        playagain=Button(winframe, text="Play again!", font=("Bahnschrift", 20), command=lambda: newgame()).pack(side=LEFT)
+        winframe.grid(column=0, row=tries + 3, columnspan=4)
+        winlabel = Label(winframe, text="Conratulations! You won!", font=("Bahnschrift", 30)).pack()
+        playagain = Button(winframe, text="Play again!", font=("Bahnschrift", 20), command=lambda: newgame()).pack(
+            side=LEFT)
 
 
 def newgame():
     global tries
     global tryframes
-    for i in  range(tries):
+    for i in range(tries):
         tryframes[i].destroy()
     global code
     code = random.choices(colors, k=4)
     global winframe
     winframe.destroy()
-    tries=0
+    tries = 0
     print(code)
+
 
 trybutton = Button(window, text="TRY!", font=("Bahnschrift", spinsize), command=lambda: [check(tries), inc(1)])
 
