@@ -5,12 +5,12 @@ def game():
     x = random.uniform(0, 1)
     y = random.uniform(0, 1)
     wins = 1
-    if y<x:
+    if y < x:
         while y < x:
             y = random.uniform(0, 1)
             wins += 1
     else:
-        return 0
+        return wins - 1
     return wins - 1
 
 
