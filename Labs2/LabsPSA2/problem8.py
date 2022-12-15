@@ -20,7 +20,7 @@ def compare(people, n):
     lunch = seats(people, n)
     dinner = seats(people, n)
     for j in range(n):
-        if dinner[j] == lunch[n - 1] and dinner[j] == lunch[0]:
+        if dinner[j]==lunch[n-1] and dinner[j]==lunch[0]:
             return 0
     for j in range(1, n - 1):
         for q in range(1, n - 1):
@@ -30,9 +30,9 @@ def compare(people, n):
     return 1
 
 
-prob = 0
-tries = 1000
+prob=0
+tries=1000
 for i in range(tries):
-    prob += compare(participants, n)
+    prob+=compare(participants,n)
 
-print(prob / tries)
+print(prob/tries)
