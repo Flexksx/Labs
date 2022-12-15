@@ -4,7 +4,6 @@ jora = 0
 troleibuz = 6
 days = 365
 fines = 0
-finelist = [50, 150, 300]
 
 
 def controlor():
@@ -26,15 +25,16 @@ def ricardo():
 for i in range(days * 2):
     if not ricardo():
         if controlor():
-            if fines <= 3:
-                jora += finelist[fines - 1]
-            else:
-                jora += finelist[2]
-            fines += 1
+            if fines == 0:
+                jora += 50
+            elif fines == 1:
+                jora += 150
+            elif fines > 1:
+                jora += 300
+        fines += 1
     elif ricardo():
-        jora+=troleibuz
+        jora += troleibuz
 
-
-print("Being honest costs you",days*2*troleibuz,",while being Jora costs you", jora)
-if jora>days*2*troleibuz:
+print("Being honest costs you", days * 2 * troleibuz, ",while being Jora costs you", jora)
+if jora > days * 2 * troleibuz:
     print("Just pay the ticket dumbass")
