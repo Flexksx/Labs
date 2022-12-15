@@ -19,8 +19,20 @@ def seats(people, n):
 def compare(people, n):
     lunch = seats(people, n)
     dinner = seats(people, n)
-    print(lunch)
-    print(dinner)
+    for j in range(n):
+        if dinner[j] == lunch[n - 1] and dinner[j] == lunch[0]:
+            return 0
+    for j in range(1, n - 1):
+        for q in range(1, n - 1):
+            if not j == q and lunch[j] == dinner[q]:
+                if lunch[j + 1] == dinner[q + 1] or lunch[j - 1] == dinner[q - 1]:
+                    return 0
+    return 1
 
 
-compare(participants, n)
+prob = 0
+tries = 1000
+for i in range(tries):
+    prob += compare(participants, n)
+
+print(prob / tries)
