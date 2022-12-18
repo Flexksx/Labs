@@ -1,12 +1,21 @@
 def palindrome(s):
-    if s==s[::-1]:
+    if s == s[::-1]:
         return True
     return False
 
 
-def makepalindrom(a):
+def makerawpalindrome(s):
+    for i in range(len(s) + 1):
+        a = s[:i]
+        b = a[::-1]
+        ans = b + s
+        if palindrome(ans):
+            return ans
 
 
 
-a="aaabcbaa"
-print(palindrome(a))
+
+
+
+x = "aabcbaaa"
+print(makerawpalindrome(x))
