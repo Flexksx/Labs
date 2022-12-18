@@ -1,62 +1,26 @@
-
-def gcd(x, y):
-    if x > y:
-        small = y
-    else:
-        small = x
-    for i in range(1, small + 1):
-        if (x % i == 0) and (y % i == 0):
-            gcd = i
-    return gcd
-
-
-def is_coprime(a, b):
-    if gcd(a, b) == 1:
-        return 1
-    return 0
-
-
-def get_modular_inverse(a, m):
-    for x in range(1, m):
-        if ((a % m) * (x % m)) % m == 1:
-            return x
-    return 0
-
-
-def get_e(p, q):
-    for x in range(2, phi):
-        if is_coprime(x, phi):
-            return x
-    return "Error"
-
-
-# Starting data
-decrypted = 95384
-p = 281
-q = 283
+p = 2333
+q = 2383
 n = p * q
 phi = (p - 1) * (q - 1)
 
-# Calculated data
-e = get_e(p, q)
-d = get_modular_inverse(e, phi)
-encrypted = pow(decrypted, e, n)
-decrypted = pow(encrypted, d, n)
 
-# Output
-print("=================")
-print("Public key:")
-print((n, e))
-print("=================")
-print("Private key:")
-print((n, d))
-print("=================")
-print("Initial message:")
-print(decrypted)
-print("=================")
-print("Encrypted message:")
-print(encrypted)
-print("=================")
-print("Decrypted message:")
-print(decrypted)
-print("=================")
+def gcd(a, b):
+    while (b):
+        a, b = b, a % b
+    return abs(a)
+
+
+def getE(x):
+    for e in range(512342,int(x / 2)):
+        if gcd(e, x) == 1:
+            return e
+    return 0
+
+
+def getD(e,n):
+    for d in range(int(n)):
+        if (e % n)*(d%n)%n==1:
+            return d
+
+print(getD(getE(phi),phi))
+print(getE(phi))
