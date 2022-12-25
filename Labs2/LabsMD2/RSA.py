@@ -46,7 +46,7 @@ def optimusprime(a, dict):
     return int(ans)
 
 
-message = optimusprime(input(), letdict)
+message = int(input())
 
 print(message)
 encrypted = pow(message, e, n)

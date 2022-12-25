@@ -1,7 +1,7 @@
 import random
 import matplotlib.pyplot as plt
 
-tries = 100000
+tries = 10000
 distribution = {}
 
 for i in range(35, 65):
