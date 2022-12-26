@@ -39,13 +39,33 @@ def elena():
         emotion = emotion.read()
     emotion = emotion.split()
     for i in range(0, len(emotion), 2):
-        dicklist.append({emotion[i]: emotion[i + 1]})
+        dicklist.append({'word': emotion[i], 'value': emotion[i + 1]})
+        if i == 678:
+            dicklist.append({'word': emotion[i] + emotion[i + 1], 'value': int(emotion[i + 2])})
+            i += 2
+
     # json_object = json.dumps(dicklist, indent=4)
     # with open("resources\\emotions.json", "w") as new:
     #     new.write(json_object)
+    print(dicklist)
     return dicklist
 
 
 def emotionval(message):
     values = elena()
-    word_tokenize(message)
+    message = word_tokenize(message)
+    ev = 0
+    for x in values:
+        if x['word'] in message:
+            ev += x['value']
+
+
+# for i in tweets:
+#     i.update({'eV':emotionval(i['text'])})
+
+#
+# test = elena()
+# for i in test:
+#     print(i['value'])
+
+elena()
