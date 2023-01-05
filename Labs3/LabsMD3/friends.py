@@ -35,7 +35,22 @@ def mostfriends(network):
 
 
 def sortbyfriends(network):
+    ans = {}
+    while network != {}:
+        max = 0
+        name = ''
+        for x in network:
+            if len(network[x]) > max:
+                max = len(network[x])
+                name = x
+        ans.update({name: network[name]})
+        del network[name]
+    return dict(reversed(list(ans.items())))
 
 
-print(graph)
+def witcher(start,stop,network):
+
+
+
 print(mostfriends(graph))
+print(sortbyfriends(graph))
