@@ -48,9 +48,18 @@ def sortbyfriends(network):
     return dict(reversed(list(ans.items())))
 
 
-def witcher(start,stop,network):
-
+def adjmat(matstr):
+    ans=[]
+    q = 0
+    for i in range(42, len(matstr), 22):
+        vals = matstr[i:i + 20]
+        print(vals)
+        for j in range(0, len(vals) - 1):
+            ans[q][j] = vals[j]
+        q += 1
+    return ans
 
 
 print(mostfriends(graph))
 print(sortbyfriends(graph))
+print(adjmat(matrix))
