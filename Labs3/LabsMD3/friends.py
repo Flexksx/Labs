@@ -138,9 +138,32 @@ def market():
     return ans
 
 
+def promotion(net):
+    with open("resources\\people_interests.txt", 'r') as f:
+        txt = f.read().strip().split()
+    people = list(net.keys())
+    ratings = newrating(net)
+    ans = {}
+    h = 0
+    start = 0
+    end = 0
+    for i in range(0, len(txt) - 1):
+        if txt[i] == ":":
+            start = i
+            for j in range(start, len(txt) - 1):
+                if txt[j] == ":" and j > start:
+                    end = j
+                    break
+            interests = list(set(txt[start + 1:end - 2]))
+            ans.update({people[h]: interests})
+            h += 1
+    ans.update({people[len(people)-1]:[str(txt[-2]), str(txt[-1])]})
+    print(ans)
+
 
 # print(mostfriends(graph))
 # print(sortbyfriends(graph))
 # print(ratings(graph))
 # print(newrating(graph))
-print(market())
+# print(market())
+promotion(graph)
