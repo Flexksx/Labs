@@ -6,7 +6,7 @@ matrix = matrix.split()
 people = [(matrix[i] + ' ' + matrix[i + 1]) if matrix[i] != '|' else '' for i in range(0, 60, 3)]
 
 
-def getgraph(people, matrix):
+def GetGraph(people, matrix):
     for i in matrix:
         if i == '|':
             matrix.remove(i)
@@ -23,10 +23,10 @@ def getgraph(people, matrix):
     return ans
 
 
-graph = getgraph(people, matrix)
+graph = GetGraph(people, matrix)
 
 
-def mostfriends(network):
+def MostFriends(network):
     maxlen = 0
     ans = ''
     for x in network:
@@ -36,7 +36,7 @@ def mostfriends(network):
     return ans
 
 
-def sortbyfriends(network):
+def SortByFriends(network):
     ans = {}
     while network != {}:
         max = 0
@@ -50,7 +50,7 @@ def sortbyfriends(network):
     return dict(reversed(list(ans.items())))
 
 
-def adjmat(matstr):
+def AdjMatrix(matstr):
     ans = [[0 for i in range(20)] for j in range(20)]
     q = 0
     for i in range(42, len(matstr), 22):
@@ -61,7 +61,7 @@ def adjmat(matstr):
     return ans
 
 
-def ratings(net):
+def Rating(net):
     def dijkstra(net, start, end):
         distances = {node: sys.maxsize for node in net}
         distances[start] = 0
@@ -110,13 +110,13 @@ def ratings(net):
     return answer()
 
 
-def newrating(net):
+def NewRating(net):
     with open("resources\\influence.txt", 'r') as f:
         txt = f.read().split()
     freq = {}
     for i in range(0, len(txt), 4):
         freq.update({txt[i] + " " + txt[i + 1]: float(txt[i + 3])})
-    ans = ratings(net)
+    ans = Rating(net)
     for x in freq:
         ans[x] = ans[x] * (freq[x] * 0.5)
 
@@ -127,7 +127,7 @@ def newrating(net):
     return ans
 
 
-def market():
+def Market():
     with open("resources\\interests.txt", 'r') as f:
         interests = f.read().split()
     title = "From T-Rex to Multi Universes: How the Internet has Changed Politics, Art and Cute Cats"
@@ -138,15 +138,12 @@ def market():
     return ans
 
 
-def promotion(net):
+def GetPersonalInterests(net):
     with open("resources\\people_interests.txt", 'r') as f:
         txt = f.read().strip().split()
     people = list(net.keys())
-    ratings = newrating(net)
     ans = {}
     h = 0
-    start = 0
-    end = 0
     for i in range(0, len(txt) - 1):
         if txt[i] == ":":
             start = i
@@ -157,13 +154,21 @@ def promotion(net):
             interests = list(set(txt[start + 1:end - 2]))
             ans.update({people[h]: interests})
             h += 1
-    ans.update({people[len(people)-1]:[str(txt[-2]), str(txt[-1])]})
-    print(ans)
+    ans.update({people[len(people) - 1]: [str(txt[-2]), str(txt[-1])]})
+    return ans
 
 
-# print(mostfriends(graph))
-# print(sortbyfriends(graph))
-# print(ratings(graph))
-# print(newrating(graph))
-# print(market())
-promotion(graph)
+def Coinciding(net):
+    interests = GetPersonalInterests(net)
+    ratings = NewRating(net)
+    markt = Market()
+    ans = {}
+    for x in interests:
+        match = []
+        for i in interests[x]:
+            if i in markt:
+                match.append(i)
+        ans.update({x: (0.2 * len(match)) * ratings[x]})
+    ans = sorted(ans.items(), key=lambda x: x[1], reverse=True)
+    return ans
+
