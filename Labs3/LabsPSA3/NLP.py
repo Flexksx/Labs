@@ -4,20 +4,24 @@ import nltk
 from nltk import TweetTokenizer
 
 tt = TweetTokenizer()
-special_chars = "1234567890#@.=?\",”$%^&’*(…[]):!><"
 likes_per_id = {}
 retweets_per_id = {}
-filter_words = ["sure"]
-words_tweet_tokenizer = []
+global filter_words
+filter_words = ["sure", "rt", "RT"]
 words_set = []
-word_count_not_case_sensitive = {}
 words_per_tweet = {}
 special_words = []
+global hashtags
 hashtags = []
+global word_count_not_case_sensitive
+word_count_not_case_sensitive = {}
 
 
 def GetWords():
+    special_chars = "1234567890#@.=?\",”$%^&’*(…[]):!><"
     word_count_dict = {}
+    words_tweet_tokenizer = []
+    word_count_not_case_sensitive = {}
     with open("C:\\Users\\Cristi\\Documents\\GitHub\\Labs\\Labs3\\LabsMD3\\resources\\tweets.json", "r",
               encoding="utf-8") as tweetJson:
         tweetJsonData = json.load(tweetJson)
@@ -42,11 +46,12 @@ def GetWords():
                 else:
                     if len(word) > 1:
                         special_words.append(word)
-    return dict(sorted(word_count_dict.items(), key=lambda item: item[1], reverse=True))
-
+    return [dict(sorted(word_count_dict.items(), key=lambda item: item[1], reverse=True)),
+            dict(sorted(word_count_not_case_sensitive.items(), key=lambda item: item[1], reverse=True)),
+            dict(sorted(words_per_tweet.items(), key=lambda item: item[1], reverse=True))]
 
 def TopWords():
-    words = GetWords()
+    words = GetWords()[0]
     x = 1
     for i in words:
         if x <= 10:
@@ -55,17 +60,20 @@ def TopWords():
 
 
 def WordPerMonth():
-    month_and_noun = {'2020-10': 0, '2020-11': 0, '2020-12': 0, '2022-01': 0, '2022-02': 0, '2022-03': 0, '2022-11': 0}
-    word = input("Write a word")
-    with open('C:\\Users\\Cristi\\Documents\\GitHub\\Labs\\Labs3\\LabsMD3\\resources\\tweets.json', 'r',
-              encoding='utf-8') as tweet_json:
-        tweet_data = json.load(tweet_json)
-        for i in range(len(tweet_data)):
-            temp_msg = nltk.word_tokenize(tweet_data[i]["text"])
-            temp_date = nltk.word_tokenize(tweet_data[i]["created_at"])
-            for x in temp_msg:
-                if x == word or x.lower() == word:
-                    month_and_noun[temp_date[0][:7]] += 1
+    month_and_noun = {'2020-10-': 0, '2020-11-': 0, '2020-12-': 0, '2022-01-': 0, '2022-02-': 0, '2022-03-': 0,
+                      '2022-11-': 0}
+    word = input("Write a word").strip()
+    with open("C:\\Users\\Cristi\\Documents\\GitHub\\Labs\\Labs3\\LabsMD3\\resources\\tweets.json", "r",
+              encoding="utf-8") as tweetJson:
+        tweetJsonData = json.load(tweetJson)
+        for tweet in tweetJsonData:
+            tempWords = tt.tokenize(tweet["text"])
+            tempTime = tt.tokenize(tweet['created_at'])
+            for x in tempWords:
+                if word == x or word.lower() == x.lower() or word == x.lower():
+                    for y in month_and_noun:
+                        if y == tempTime[0]:
+                            month_and_noun[y] += 1
     x = list(month_and_noun.keys())
     y = list(month_and_noun.values())
     plt.bar(x, y, color='maroon', width=0.7)
@@ -73,7 +81,7 @@ def WordPerMonth():
 
 
 def CountNouns():
-    words = GetWords()
+    words = GetWords()[0]
     nouns_counted = {}
     for i in words:
         ans = nltk.pos_tag([i])[0][1]
@@ -90,7 +98,7 @@ def CountNouns():
                 likes_per_id[tweet["id"]] = tweet["likes"]
                 retweets_per_id[tweet["id"]] = tweet["retweets"]
         popularity_nouns = {}
-        word_count_dict = GetWords()
+        word_count_dict = GetWords()[0]
         for noun in nouns_counted:
             normLikes = 0
             normRetweets = 0
@@ -102,8 +110,8 @@ def CountNouns():
         return dict(sorted(popularity_nouns.items(), key=lambda item: item[1], reverse=True))
 
     def ProperNouns():
-        # Counts proper nouns
         proper_nouns_counted = {}
+        word_count_not_case_sensitive = GetWords()[1]
         for i in word_count_not_case_sensitive:
             ans = nltk.pos_tag([i])[0][1]
             if ans == 'NN' or ans == 'NNS' or ans == 'NNPS' or ans == 'NNP':
@@ -113,9 +121,7 @@ def CountNouns():
 
     def OutPropNouns():
         proper_nouns_counted = ProperNouns()
-        print("===================")
         print("Top 10 proper nouns")
-        print("===================")
         x = 1
         for i in proper_nouns_counted:
             if x <= 10:
@@ -125,9 +131,7 @@ def CountNouns():
     def OutPopNouns():
         # Outputs popularity nouns
         popularity_nouns = PopularityNouns()
-        print("==========================")
         print("Top 10 nouns by popularity")
-        print("==========================")
         x = 1
         for i in popularity_nouns:
             if x <= 10:
@@ -135,9 +139,7 @@ def CountNouns():
             x += 1
 
     def OutNouns():
-        print("============")
         print("Top 10 nouns")
-        print("============")
         x = 1
         for i in nouns_counted:
             if x <= 10:
@@ -150,11 +152,12 @@ def CountNouns():
 
 
 def Suggestion():
+    word = input("Write word for suggestion").strip()
     def GetSugg():
         # Suggestion stuff
-        word_count_dict = GetWords()
+        word_count_dict = GetWords()[0]
         word_sliced_count = {}
-        word = input("Write word for suggestion")
+
         for x in word_count_dict:
             if x not in word_sliced_count:
                 word_sliced_count[x] = 0
@@ -176,10 +179,11 @@ def Suggestion():
 
 
 def SuggOcc():
+    word = input("Write word for suggestion").strip()
+
     def GetOcc():
-        # Suggestion occurrences stuff
-        word = input("Write word for suggestion")
         words_suggestion_counted = {}
+        words_per_tweet = GetWords()[2]
         for id in words_per_tweet:
             for i in range(len(words_per_tweet[id]) - 2):
                 if words_per_tweet[id][i] == word:
@@ -201,6 +205,7 @@ def SuggOcc():
 
     GetOcc()
     Out()
+
 
 # TopWords()
 # CountNouns()

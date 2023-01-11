@@ -1,7 +1,7 @@
-nr = int(input('nr flights:'))
-begin = int(input('begin node:'))
-end = int(input('end node:'))
-k = int(input('max stops:'))
+nr = int(input('Nr:'))
+begin = int(input('Start:'))
+end = int(input('Stop:'))
+k = int(input('MaxStops:'))
 flights = [[0]*3]*nr
 
 

@@ -1,5 +1,6 @@
 total_courses = int(input())
-prerequisites, visited = [[0]*2]*total_courses, {int(x) for x in range(total_courses)}
+prerequisites = [[0]*2]*total_courses
+visited = {int(x) for x in range(total_courses)}
 verify, minus = list(), list()
 visited_list = []
 def search(graph, viz):
@@ -33,4 +34,5 @@ for i in verify:
         break
 if answer is None:
     answer = True
+
 print(answer)

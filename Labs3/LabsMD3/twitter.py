@@ -1,5 +1,6 @@
 import json
-from nltk.tokenize import word_tokenize
+import nltk
+from nltk import TweetTokenizer
 
 with open("resources\\tweets.json", "r", encoding='utf-8') as f:
     data = json.load(f)
@@ -7,6 +8,8 @@ with open("resources\\tweets.json", "r", encoding='utf-8') as f:
 tweets = []
 for i in data:
     tweets.append(i)
+
+tt = TweetTokenizer()
 
 
 def gethashtags(tuitz):
@@ -25,8 +28,8 @@ def gethashtags(tuitz):
     return hashtags
 
 
-def sortdict(somedict):
-    a = sorted(somedict.items(), key=lambda x: x[1], reverse=True)
+def sortdict(somedict, rev):
+    a = sorted(somedict.items(), key=lambda x: x[1], reverse=rev)
     ans = []
     for i in range(1, 11):
         ans.append(a[i])
@@ -34,30 +37,50 @@ def sortdict(somedict):
 
 
 def emotions():
-    dicklist = []
-    with open('resources\\AFINN-111.txt', 'r') as emotion:
-        emotion = emotion.read()
-    emotion = emotion.split()
-    for i in range(0, len(emotion), 2):
-        dicklist.append({emotion[i] : emotion[i + 1]})
-        if i == 678:
-            dicklist.append({emotion[i] + emotion[i + 1]:int(emotion[i + 2])})
-            i += 2
-
-    # json_object = json.dumps(dicklist, indent=4)
-    # with open("resources\\emotions.json", "w") as new:
-    #     new.write(json_object)
+    dicklist = {}
+    with open("resources\\AFINN-111.txt", "r", encoding="utf-8") as AFINNdict:
+        for line in AFINNdict:
+            words = nltk.word_tokenize(line)
+            nr = words[len(words) - 1]
+            strn = ""
+            for x in range(len(words) - 1):
+                strn += words[x]
+            dicklist[strn] = nr
     return dicklist
 
 
-def emotionval(message):
+def emotionval(tweets):
     values = emotions()
-    message = word_tokenize(message)
-    ev = 0
-    for x in values:
-        if x in message:
-            ev += x
+    ans = {}
+    for x in tweets:
+        ans.update({x['text']: 0})
+    for x in ans:
+        tweet = tt.tokenize(x)
+        for word in tweet:
+            for val in values:
+                if word == val:
+                    ans[x] += int(values[val])
+    return ans
 
 
-print(sortdict(gethashtags(tweets)))
+def EmotionalValuesOut(valued):
+    print("Top Most negative tweets")
+    ans = sortdict(valued, False)
+    for x in ans:
+        print(x)
+    print("Top Most Positive tweets")
+    ans = sortdict(valued, True)
+    for x in ans:
+        print(x)
 
+
+def storeintxt(tweets):
+    ans = emotionval(tweets)
+    anslist=[]
+    for x in ans:
+        print(x,ans[x])
+    with open("evaluated.json",'w',encoding='utf-8') as f:
+        json.dump(ans,f)
+
+
+storeintxt(tweets)
