@@ -33,39 +33,31 @@ def sortdict(somedict):
     return ans
 
 
-def elena():
+def emotions():
     dicklist = []
     with open('resources\\AFINN-111.txt', 'r') as emotion:
         emotion = emotion.read()
     emotion = emotion.split()
     for i in range(0, len(emotion), 2):
-        dicklist.append({'word': emotion[i], 'value': emotion[i + 1]})
+        dicklist.append({emotion[i] : emotion[i + 1]})
         if i == 678:
-            dicklist.append({'word': emotion[i] + emotion[i + 1], 'value': int(emotion[i + 2])})
+            dicklist.append({emotion[i] + emotion[i + 1]:int(emotion[i + 2])})
             i += 2
 
     # json_object = json.dumps(dicklist, indent=4)
     # with open("resources\\emotions.json", "w") as new:
     #     new.write(json_object)
-    print(dicklist)
     return dicklist
 
 
 def emotionval(message):
-    values = elena()
+    values = emotions()
     message = word_tokenize(message)
     ev = 0
     for x in values:
-        if x['word'] in message:
-            ev += x['value']
+        if x in message:
+            ev += x
 
 
-# for i in tweets:
-#     i.update({'eV':emotionval(i['text'])})
+print(sortdict(gethashtags(tweets)))
 
-#
-# test = elena()
-# for i in test:
-#     print(i['value'])
-
-elena()

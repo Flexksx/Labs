@@ -37,4 +37,4 @@ for i in range(days * 2):
 
 print("Being honest costs you", days * 2 * troleibuz, ",while being Jora costs you", jora)
 if jora > days * 2 * troleibuz:
-    print("Just pay the ticket dumbass")
+    print("Just pay the ticket")

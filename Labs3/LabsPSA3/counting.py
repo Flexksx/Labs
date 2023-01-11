@@ -1,33 +1,19 @@
 import random
 
-people = [i for i in range(100)]
+places = [i for i in range(0, 100)]
+last, n = 0, 10000
 
+for i in range(n):
+    random.shuffle(places)
+    occupied = [random.randint(0, 99)]
+    for j in range(1, 100):
+        last = last + 1 if j == 99 and places[j] not in occupied else last
+        if places[j] in occupied:
+            x = random.choice(places)
+            while x in occupied:
+                x = random.choice(places)
+            occupied.append(x)
+        else:
+            occupied.append(places[j])
 
-def seated(a):
-    for x in a:
-        if a[x] == False:
-            return False
-    return True
-
-def simulation(people):
-    seats = {}
-    for i in people:
-        seats.update({i: False})
-    first = random.randint(0, 99)
-    seats[0] = first
-    index = 0
-    while not seated(seats):
-        for x in seats:
-            if x == index:
-                continue
-            else:
-                seats[x] = x
-            if x == first:
-                first = random.randint(0,99)
-                index = x
-                break
-        print(seats)
-    return seats
-
-
-print(simulation(people))
+print(last/n)
