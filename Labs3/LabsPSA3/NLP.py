@@ -207,8 +207,8 @@ def SuggOcc():
     Out()
 
 
-# TopWords()
-# CountNouns()
-# Suggestion()
-# SuggOcc()
-# WordPerMonth()
+TopWords()
+CountNouns()
+Suggestion()
+SuggOcc()
+WordPerMonth()

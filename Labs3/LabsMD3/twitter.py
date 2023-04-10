@@ -83,4 +83,4 @@ def storeintxt(tweets):
         json.dump(ans,f)
 
 
-storeintxt(tweets)
+EmotionalValuesOut(emotionval(tweets))
