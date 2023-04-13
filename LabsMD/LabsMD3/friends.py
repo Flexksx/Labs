@@ -1,6 +1,6 @@
 import sys
 
-with open('C:\\Users\\Cristi\\Documents\\GitHub\\Labs\\Labs3\\LabsMD3\\resources\\matrix.txt', 'r') as f:
+with open('/LabsMD/LabsMD3/resources/matrix.txt', 'r') as f:
     matrix = f.read()
 matrix = matrix.split()
 people = [(matrix[i] + ' ' + matrix[i + 1]) if matrix[i] != '|' else '' for i in range(0, 60, 3)]
@@ -111,7 +111,7 @@ def Rating(net):
 
 
 def NewRating(net):
-    with open("resources\\influence.txt", 'r') as f:
+    with open("resources/influence.txt", 'r') as f:
         txt = f.read().split()
     freq = {}
     for i in range(0, len(txt), 4):
@@ -128,7 +128,7 @@ def NewRating(net):
 
 
 def Market():
-    with open("resources\\interests.txt", 'r') as f:
+    with open("resources/interests.txt", 'r') as f:
         interests = f.read().split()
     title = "From T-Rex to Multi Universes: How the Internet has Changed Politics, Art and Cute Cats"
     ans = []
@@ -139,7 +139,7 @@ def Market():
 
 
 def GetPersonalInterests(net):
-    with open("resources\\people_interests.txt", 'r') as f:
+    with open("resources/people_interests.txt", 'r') as f:
         txt = f.read().strip().split()
     people = list(net.keys())
     ans = {}

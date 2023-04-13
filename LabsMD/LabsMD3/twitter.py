@@ -2,7 +2,7 @@ import json
 import nltk
 from nltk import TweetTokenizer
 
-with open("resources\\tweets.json", "r", encoding='utf-8') as f:
+with open("resources/tweets.json", "r", encoding='utf-8') as f:
     data = json.load(f)
 
 tweets = []
@@ -38,7 +38,7 @@ def sortdict(somedict, rev):
 
 def emotions():
     dicklist = {}
-    with open("resources\\AFINN-111.txt", "r", encoding="utf-8") as AFINNdict:
+    with open("resources/AFINN-111.txt", "r", encoding="utf-8") as AFINNdict:
         for line in AFINNdict:
             words = nltk.word_tokenize(line)
             nr = words[len(words) - 1]
@@ -79,7 +79,7 @@ def storeintxt(tweets):
     anslist=[]
     for x in ans:
         print(x,ans[x])
-    with open("evaluated.json",'w',encoding='utf-8') as f:
+    with open("evaluated.json", 'w', encoding='utf-8') as f:
         json.dump(ans,f)
 
 

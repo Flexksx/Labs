@@ -22,7 +22,7 @@ def GetWords():
     word_count_dict = {}
     words_tweet_tokenizer = []
     word_count_not_case_sensitive = {}
-    with open("C:\\Users\\Cristi\\Documents\\GitHub\\Labs\\Labs3\\LabsMD3\\resources\\tweets.json", "r",
+    with open("/LabsMD/LabsMD3\\resources\\tweets.json", "r",
               encoding="utf-8") as tweetJson:
         tweetJsonData = json.load(tweetJson)
         for tweet in tweetJsonData:
@@ -63,7 +63,7 @@ def WordPerMonth():
     month_and_noun = {'2020-10-': 0, '2020-11-': 0, '2020-12-': 0, '2022-01-': 0, '2022-02-': 0, '2022-03-': 0,
                       '2022-11-': 0}
     word = input("Write a word").strip()
-    with open("C:\\Users\\Cristi\\Documents\\GitHub\\Labs\\Labs3\\LabsMD3\\resources\\tweets.json", "r",
+    with open("/LabsMD/LabsMD3\\resources\\tweets.json", "r",
               encoding="utf-8") as tweetJson:
         tweetJsonData = json.load(tweetJson)
         for tweet in tweetJsonData:
@@ -91,7 +91,7 @@ def CountNouns():
     nouns_counted = dict(sorted(nouns_counted.items(), key=lambda item: item[1], reverse=True))
 
     def PopularityNouns():
-        with open('C:\\Users\\Cristi\\Documents\\GitHub\\Labs\\Labs3\\LabsMD3\\resources\\tweets.json', 'r',
+        with open('/LabsMD/LabsMD3\\resources\\tweets.json', 'r',
                   encoding='utf-8') as tweet_json:
             tweet_data = json.load(tweet_json)
             for tweet in tweet_data:
