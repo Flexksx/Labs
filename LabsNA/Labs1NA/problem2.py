@@ -14,12 +14,11 @@ def FPINewton(c, guess):
     xold = guess
     iter = 0
     while iter < 100:
-        xnew = xold - g(xold, c)
+        xnew = xold - g(xold, c)/dg(xold,c)
         xold = xnew
         iter += 1
+        if xold==0.0:
+            return xold
     xnew = xold - g(xold, c)
     return xnew
 
-
-for i in range(1,5):
-    print(FPINewton(i,1))

@@ -11,6 +11,7 @@ greetingframe = Frame(window)
 greetinglabel = Label(greetingframe, text="Try to break the code! There are 6 possible colors.",
                       font=("Bahnschrift", 20)).pack()
 tryframes = []
+
 box1 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize), wrap=True)
 box1.grid(column=0, row=1)
 box2 = Spinbox(window, values=colors, font=("Bahnschrift", spinsize), wrap=True)
