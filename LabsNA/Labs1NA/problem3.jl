@@ -1,34 +1,34 @@
-function f(x)
-    return x^3+2*x^2+10*x-20
-end
+f(x) = x^3+2*x^2+10*x-20
 
-x=zeros(100)
-x[1]=0
-x[2]=1
-x[3]=2
-
-for i=4:length(x)-1
-    if f(x[i-1])==0.0
-        print("Solution found: ", x[i-1])
-        break
+function muller(f, x0, x1, x2, tol)
+    max_iter = 100
+    
+    for i = 1:max_iter
+        h1 = x1 - x0
+        h2 = x2 - x1
+        δ1 = (f(x1) - f(x0)) / h1
+        δ2 = (f(x2) - f(x1)) / h2
+        a = (δ2 - δ1) / (h2 + h1)
+        b = a*h2 + δ2
+        c = f(x2)
+        dis = b^2 - 4*a*c
+        if abs(b - sqrt(dis)) > abs(b + sqrt(dis))
+            jopa = b - sqrt(dis)
+        else
+            jopa = b + sqrt(dis)
+        end
+        dx = -2*c / jopa
+        x3 = x2 + dx
+        if abs(dx) < tol
+            return x3
+        end
+        x0 = x1
+        x1 = x2
+        x2 = x3
     end
-    q=(x[i-1]-x[i-1-1])/(x[i-1-1]-x[i-1-2])
-    c=(1+q)*f(x[i])
-    b=(2*q+1)*f(x[i-1])-(1+q)^2*f(x[i-1-1])+q^2*f(x[i-1-2])
-    a=q*f(x[i-1])-q*(1+q)*f(x[i-1-1])+q^2*f(x[i-1-2])
-    Δ=b^2-4*a*c
-    if isreal(sqrt(Δ))
-        x1=b-sqrt(Δ)
-        x2=b+sqrt(Δ)
-        jopa=max(x1,x2)
-    else 
-        x1=b-sqrt(Complex(Δ))
-        x2=b+sqrt(Complex(Δ))
-        jopa=max(x1,x2)
-    end
-    x[i]=x[i-1]-(x[i-1]-x[i-1-1])*(2*c)/jopa
+    error("Too many iterations")
 end
 
-for i=1:length(x)
-    print("x[",i,"]=",x[i]," f(x)=",f(x[i]),"\n")
-end
+r=muller(f,0,1,2,1e-8)
+print("Root is r=",r,"\n")
+print("f(r)=",f(r))
