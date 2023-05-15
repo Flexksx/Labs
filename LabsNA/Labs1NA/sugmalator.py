@@ -6,17 +6,31 @@ from tkinter import *
 # NameFrame=Frame(window)
 # NameFrameLabel=Label(NameFrame, text="Kizda messi", font=("Bahnschrift",20)).pack()
 
-def DecMinus(a:str,b:str):
-    if len(a)>=len(b):
-        size=len(b)
-    else:
-        size=len(a)
+
+
+
+def DecMinus(a:str, b:str):
+    #Find which is greater
+    sign='+'
+    if len(b)>len(a):
         temp=a
         a=b
         b=temp
-    for i in range(size,0,-1):
-        print(b[i])
+        sign='-'
+    a.split()
+    b.split()
+    la=len(a)
+    lb=len(b)
+    dl=la-lb
+    res=[a[i] for i in range(la)]
+    # print(a,b,sign,la,lb,dl)
+    for i in range(0,lb):
+        dig1=int(a[la-i-1])
+        dig2=int(b[lb-i-1])
+        # print(dig1,dig2)
+        res[la-i-1]=str(abs(dig1-dig2))
+    return sign+''.join(res)
 
 
-DecMinus('123','12')
 
+print(DecMinus("212","12"))        
