@@ -9,7 +9,7 @@ from tkinter import *
 
 
 
-def DecMinus(a:str, b:str):
+def DecMinusInt(a:str, b:str):
     #Find which is greater
     sign='+'
     if len(b)>len(a):
