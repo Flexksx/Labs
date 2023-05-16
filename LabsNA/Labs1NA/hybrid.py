@@ -21,7 +21,7 @@ def hybrid_secant_bisection(f, a, b, tol, max_iter):
     return x1
 
 def f(x):
-    return eval(input())
+    return x**2-4*x
 
 root = hybrid_secant_bisection(f, 0, 3, 1e-6, 100)
 print(root)
