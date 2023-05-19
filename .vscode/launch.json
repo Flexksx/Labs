@@ -12,7 +12,7 @@
             "console": "integratedTerminal",
             "justMyCode": true
         },
-        /*{
+        {
             "type": "julia",
             "request": "launch",
             "name": "Run active Julia file",
@@ -20,6 +20,6 @@
             "stopOnEntry": false,
             "cwd": "${workspaceFolder}",
             "juliaEnv": "${command:activeJuliaEnvironment}"
-        }*/
+        }
     ]
 }
