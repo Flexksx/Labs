@@ -16,10 +16,8 @@ def do(c, initial_guess):
     print("Limit for c=",c,":", limit)
     print("Result c=",c,":", result)
 
-'''if we assume that it converges to 1/c, and we test for any c that
-is a positive integer, we can make the initial guess as 0.1,
-because 0 will be a root of the function
-'''
+'''if we assume that it converges to 1/c, and we test for any c that is a positive integer, we can make the initial guess as 0.1,
+because 0 will be a root of the function'''
 
 for i in range(1,10):
     do(i,0.1)

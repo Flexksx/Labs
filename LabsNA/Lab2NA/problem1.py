@@ -24,7 +24,7 @@ def DLegendre(n, x):
 def LegendreRoots(polyorder, tolerance=1e-20):
     global roots
     if polyorder < 2:
-        err = 1  # roots of bad polyorder can not be founded
+        err = 1
     else:
         roots = []
         for i in range(1, int(polyorder) // 2 + 1):
@@ -42,7 +42,7 @@ def LegendreRoots(polyorder, tolerance=1e-20):
             roots = np.concatenate((-1.0 * roots, roots[::-1]))
         else:
             roots = np.concatenate((-1.0 * roots, [0.0], roots[::-1]))
-        err = 0  # successfully roots has been founded
+        err = 0
     return [roots, err]
 
 
@@ -53,12 +53,9 @@ def GaussLegendreWeights(polyorder):
         W = 2.0 / ((1.0 - xis ** 2) * (DLegendre(polyorder, xis) ** 2))
         err = 0
     else:
-        err = 1  # we couldn't find any roots then we have no weights
+        err = 1
     return [W, xis, err]
 
-
-# a, b: the interval of what we want to have its integral
-# polyorder  : order of the Legendre polynomial to be used
 
 def GaussLegendreQuadrature(func, polyorder, a, b):
     [Ws, xs, err] = GaussLegendreWeights(polyorder)
@@ -75,22 +72,17 @@ def func(x):
     return np.cos(x**2) + np.sin(x)
 
 
-# after inputting the function we should change the order for calculating the integral if we want more Accuracy but it
-# takes more time for increased order
 print("enter your order:  ")
 order = int(input())
 [Ws, xs, err] = GaussLegendreWeights(order)
 if err == 0:
     print("Number of points  : ", order)
-    # this shows us the weights of related function
     print("Weights  : ", Ws)
-    # this one shows us the roots of related function
     print("Roots    : ", xs)
 
 else:
     print("Roots/Weights evaluation failed")
 
-# Now we can calculate the integral with the order and our wanted interval and print the answer of it
 [ans, err] = GaussLegendreQuadrature(func, order, -2, 2)
 if err == 0:
     print("Integral: ", ans)
