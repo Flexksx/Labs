@@ -1,91 +1,112 @@
-# Read the dataset from the file
-# Read the dataset from the file
-def read_dataset(file_path):
-    dataset = []
-    with open(file_path, 'r') as file:
-        next(file)  # Skip the header
-        for line in file:
-            line = line.strip()
-            if line:
-                values = line.split(',')
-                items = int(values[0].strip())
-                time = float(values[1].strip()) if values[1].strip().lower() != 'nan' else None
-                dataset.append((items, time))
-    return dataset
-
-file_path = 'Assets/dataset_3.txt'
-dataset = read_dataset(file_path)
+import numpy as np
 
 
-file_path = 'Assets/dataset_3.txt'
-dataset = read_dataset(file_path)
-# Lagrange Interpolation
-def lagrange_interpolation(x, x_values, y_values):
-    n = len(x_values)
-    result = 0
-    for i in range(n):
-        term = y_values[i]
-        for j in range(n):
-            if i != j:
-                term *= (x - x_values[j]) / (x_values[i] - x_values[j])
-        result += term
-    return result
-# Piecewise Linear Interpolation
-def piecewise_linear_interpolation(x, x_values, y_values):
-    n = len(x_values)
-    for i in range(n-1):
-        if x_values[i] <= x <= x_values[i+1]:
-            y = y_values[i] + (x - x_values[i]) * (y_values[i+1] - y_values[i]) / (x_values[i+1] - x_values[i])
-            return y
-    return None
-# Newton's Divided Difference Interpolation
-def newton_interpolation(x, x_values, y_values):
-    n = len(x_values)
-    coefficients = [y_values[0]]
+def newton_Int(x1, y1, z):
+    # Initialize k to 1 and Q to a list of zeros to hold the coefficients
+    n = len(x1)
+    a = y1.copy()
+    # Calculate the divided differences using nested loops
+    for j in range(1, n):
+        for i in range(n-1, j - 1, -1):
+            a[i] = (a[i] - a[i - 1]) / (x1[i] - x1[i - j])
+    # Calculate the coefficients of the polynomial using the divided differences
+    p = a[-1]
+    for i in range(n-2, -1, -1):
+        p = a[i] + (z - x1[i]) * p
+    # Return the value of the polynomial at the given point x
+    return p
+
+
+def lagrange_interp(x, y, x_interp):
+    n = len(x)
+    y_interp = 0.0
+    for j in range(n):
+        L = 1.0
+        for k in range(n):
+            if k != j:
+                L *= (x_interp - x[k]) / (x[j] - x[k])
+        y_interp += L * y[j]
+    return y_interp
+
+
+def piecewise_linear_interp(x, y, x_interp):
+    n = len(x)
+    if x_interp <= x[0]:
+        return y[0]
+    if x_interp >= x[-1]:
+        return y[-1]
     for i in range(1, n):
-        f_diff = [y_values[j] for j in range(i, n)]
-        for j in range(i):
-            f_diff[j] = (f_diff[j+1] - f_diff[j]) / (x_values[j+i] - x_values[j])
-        coefficients.append(f_diff[0])
-    result = coefficients[0]
-    for i in range(1, n):
-        term = coefficients[i]
-        for j in range(i):
-            term *= (x - x_values[j])
-        result += term
-    return result
-# Cubic Spline Interpolation
-def cubic_spline_interpolation(x, x_values, y_values):
-    n = len(x_values)
-    h = [x_values[i+1] - x_values[i] for i in range(n-1)]
-    alpha = [0] + [(3 * (y_values[i+1] - y_values[i]) / h[i]) - (3 * (y_values[i] - y_values[i-1]) / h[i-1]) for i in range(1, n-1)]
-    l, mu, z = [1], [0], [0]
-    for i in range(1, n-1):
-        l.append(2 * (x_values[i+1] - x_values[i-1]) - h[i-1] * mu[i-1])
-        mu.append(h[i] / l[i])
-        z.append((alpha[i] - h[i-1] * z[i-1]) / l[i])
-    l.append(1)
-    z.append(0)
-    c, b, d = [0] * n, [0] * n, [0] * n
-    for j in range(n-2, -1, -1):
-        c[j] = z[j] - mu[j] * c[j+1]
-        b[j] = (y_values[j+1] - y_values[j]) / h[j] - h[j] * (c[j+1] + 2 * c[j]) / 3
-        d[j] = (c[j+1] - c[j]) / (3 * h[j])
-    for i in range(n-1):
-        if x_values[i] <= x <= x_values[i+1]:
-            y = y_values[i] + b[i] * (x - x_values[i]) + c[i] * (x - x_values[i]) ** 2 + d[i] * (x - x_values[i]) ** 3
-            return y
-    return None
-x_values = [data[0] for data in dataset]
-y_values = [data[1] for data in dataset]
+        if x_interp <= x[i]:
+            t = (x_interp - x[i - 1]) / (x[i] - x[i - 1])
+            y_interp = (1 - t) * y[i - 1] + t * y[i]
+            return y_interp
 
-x = 30
-lagrange_result = lagrange_interpolation(x, x_values, y_values)
-linear_result = piecewise_linear_interpolation(x, x_values, y_values)
-newton_result = newton_interpolation(x, x_values, y_values)
-spline_result = cubic_spline_interpolation(x, x_values, y_values)
 
-print(f"Lagrange Interpolation: {lagrange_result}")
-print(f"Piecewise Linear Interpolation: {linear_result}")
-print(f"Newton's Divided Difference Interpolation: {newton_result}")
-print(f"Cubic Spline Interpolation: {spline_result}")
+def cubic_spline_interp(x, y, x_interp):
+    n = len(x)
+    if x_interp <= x[0]:
+        return y[0]
+    if x_interp >= x[-1]:
+        return y[-1]
+    h = np.diff(x)
+    alpha = np.zeros(n)
+    l = np.ones(n)
+    c = np.zeros(n)
+    b = np.zeros(n)
+    d = np.zeros(n)
+    for i in range(1, n - 1):
+        alpha[i] = h[i] / (h[i - 1] + h[i])
+        l[i] = 2 * (x[i + 1] - x[i - 1]) - h[i - 1] * alpha[i - 1]
+        c[i] = h[i] / l[i]
+        b[i] = h[i - 1] / l[i - 1]
+        d[i] = (3 / (h[i - 1] + h[i])) * (alpha[i - 1] * (y[i + 1] - y[i]) - (alpha[i] * (y[i] - y[i - 1])))
+    c[-1] = 0
+    for j in range(n - 2, -1, -1):
+        c[j] = c[j] - b[j] * c[j + 1]
+        d[j] = d[j] - b[j] * d[j + 1]
+    index = np.searchsorted(x, x_interp)
+    interval = index - 1
+    t = (x_interp - x[interval]) / h[interval]
+    y_interp = ((d[interval] * t + c[interval]) * t + b[interval]) * t + y[interval]
+    return y_interp
+
+
+
+def romberg_integration(x, y):
+    n = len(x)
+    h = np.diff(x)
+    sum_terms = (y[:-1] + y[1:]) * h
+    integral = np.sum(sum_terms) / 2
+    return integral
+
+with open("LabsNA\\Lab2NA\\Assets\\dataset_3.txt") as f:
+    lines = f.readlines()
+
+x1 = []
+y1 = []
+days = 1
+Nan = 0
+for line in lines:
+    items, time = line.strip().split(",")
+    if time == ' Nan':
+        Nan += 1
+        print(f"Nan nr. {Nan}:")
+        time = newton_Int(x1[-10:], y1[-10:], days - 1)
+        rounded_number = format(time, ".1f")
+        print(f"For {days-1} items this:{rounded_number} by Newton interp.")
+        time = lagrange_interp(x1, y1, days - 1)
+        print(f"For {days-1} items this:{time} by Lagrange interp.")
+        time = piecewise_linear_interp(x1, y1, days - 1)
+        print(f"For {days-1} items this:{time} by Piecewise interp.")
+        time = cubic_spline_interp(x1, y1, days - 1)
+        print(f"For {days-1} items this:{time} by Cubic interp.")
+        x_interpolated = np.linspace(x1[0], x1[-1], num=2 * len(x1) - 1)
+        y_interpolated = np.interp(x_interpolated, x1, y1)
+        integral = romberg_integration(x_interpolated, y_interpolated)
+        print(f"Area till {days-1} = {integral}")
+        print("--------------------------------------------------------------")
+    x1.append(int(items))
+    y1.append(int(time))
+    days += 1
+
+

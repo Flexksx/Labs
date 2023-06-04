@@ -1,44 +1,36 @@
 import matplotlib.pyplot as plt
-import numpy as np
 
-# Read dataset from file
-dataset_file = "Assets/dataset_2.txt"
+def piecewise_linear_interp(x, y, x_interp):
+    n = len(x)
+    if x_interp <= x[0]:
+        return y[0]
+    if x_interp >= x[-1]:
+        return y[-1]
+    for i in range(1, n):
+        if x_interp <= x[i]:
+            t = (x_interp - x[i - 1]) / (x[i] - x[i - 1])
+            y_interp = (1 - t) * y[i - 1] + t * y[i]
+            return y_interp
 
-dataset = []
-with open(dataset_file, 'r') as file:
-    # Skip the header
-    next(file)
-    for line in file:
-        date, visitors = line.strip().split(',')
-        dataset.append([date, float(visitors) if visitors != 'Nan' else float('nan')])
+x1, y1, x2, y2 = [], [], [], []
+days = 1
 
-# Perform linear interpolation
-interpolated_dataset = []
-for i in range(len(dataset)):
-    if not np.isnan(dataset[i][1]):
-        interpolated_dataset.append(dataset[i])
-    else:
-        j = i - 1
-        while np.isnan(dataset[j][1]):
-            j -= 1
-        start_date = np.datetime64(dataset[j][0])
-        start_visitors = dataset[j][1]
-        end_date = np.datetime64(dataset[i + 1][0])
-        end_visitors = dataset[i + 1][1]
-        days = (end_date - start_date).astype('timedelta64[D]').astype(int)
-        interpolated_values = np.linspace(start_visitors, end_visitors, days + 2)[1:-1]
-        interpolated_dates = np.arange(start_date + np.timedelta64(1, 'D'), end_date, dtype='datetime64[D]')
-        interpolated_dates = interpolated_dates.astype(str)
-        interpolated_dataset.extend(zip(interpolated_dates, interpolated_values))
+with open("C:\\Users\\Cristi\\Documents\\GitHub\\Labs\\LabsNA\\Lab2NA\\Assets\\dataset_2.txt") as f:
+    lines = f.readlines()
+for line in lines:
+    if line.startswith("Date"):
+        continue
+    date, visitors = line.strip().split(",")
+    if visitors == 'Nan':
+        visitors = piecewise_linear_interp(x1, y1, days - 1)
+        x2.append(days)
+        y2.append(int(visitors))
+    x1.append(days)
+    y1.append(int(visitors))
+    days += 1
 
-dates = [entry[0] for entry in interpolated_dataset]
-visitors = [entry[1] for entry in interpolated_dataset]
 
-# Plot the data
-plt.plot(dates, visitors, label='Interpolated Data')
-plt.xlabel('Date')
-plt.ylabel('Visitors')
-plt.title('Visitor Analysis')
-plt.xticks(rotation=45)
+plt.plot(x1, y1, '-', label='Original data')
+plt.plot(x2, y2, 'o', label='Interpolated data')
 plt.legend()
 plt.show()
