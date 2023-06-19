@@ -19,7 +19,7 @@
             "program": "${file}",
             "stopOnEntry": false,
             "cwd": "${workspaceFolder}",
-            "juliaEnv": "${command:activeJuliaEnvironment}"
+            "juliaEnv": "C:\\Users\\Cristi\\AppData\\Local\\Programs\\Julia-1.8.5\\bin"
         }
     ]
 }

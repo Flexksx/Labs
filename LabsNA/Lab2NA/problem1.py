@@ -21,7 +21,8 @@ def gauss_legendre_quad(f, a, b, n, tol):
 # Test
 tests=[["x**3-2*x**2-5*x",0.1, 10],
        ["x**4-x**3-x**2-x-10", 3,4],
-       ["sin(x)+2*exp(x)",1,10]]
+       ["sin(x)+2*exp(x)",1,10],
+       ["log(x)+cos(x)-x**3",1,2]]
 
 for i in tests:
     f=np.vectorize(lambda x:eval(i[0]))

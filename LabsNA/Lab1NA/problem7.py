@@ -83,42 +83,16 @@ class BinaryCalculatorApp:
 
             if choice == 1:
                 decimal = int(input("Enter decimal number: "))
-                print("Binary:", DecimalToBinaryConverter.convert(decimal))
+                print("Binary representation:", DecimalToBinaryConverter.convert(decimal))
             elif choice == 2:
                 binary = input("Enter binary number: ")
-                print("Decimal:", BinaryToDecimalConverter.convert(binary))
+                print("Decimal representation:", BinaryToDecimalConverter.convert(binary))
             elif choice == 3:
-                bin1 = input("Enter 1st binary number: ")
-                bin2 = input("Enter 2nd binary number: ")
+                bin1 = input("Enter first binary number: ")
+                bin2 = input("Enter second binary number: ")
                 print("Sum:", self.binary_calculator.add(bin1, bin2))
             elif choice == 4:
                 bin1 = input("Enter first binary number: ")
-                bin2 = input("Enter 2nd binary number: ")
-                print("Difference:", self.binary_calculator.subtract(bin1, bin2))
-            elif choice == 5:
-                bin1 = input("Enter first binary number: ")
-                bin2 = input("Enter 2nd binary number: ")
-                print("Product:", self.binary_calculator.multiply(bin1, bin2))
-            elif choice == 6:
-                bin1 = input("Enter first binary number: ")
-                bin2 = input("Enter 2nd binary number: ")
-                try:
-                    print("Quotient:", self.binary_calculator.divide(bin1, bin2))
-                except ZeroDivisionError as e:
-                    print(e)
-            elif choice == 7:
-                approx_value = float(input("Enter the approximate value: "))
-                true_value = float(input("Enter the true value: "))
-                abs_error = self.error_calculator.calculate_absolute_error(approx_value, true_value)
-                rel_error = self.error_calculator.calculate_relative_error(approx_value, true_value)
-                print("Absolute error:", abs_error)
-                print("Relative error:", rel_error)
-            elif choice == 8:
-                print("Exiting the program.")
-                sys.exit(0)
-            else:
-                print("Invalid choice. Please try again.")
-
-
+               
 calculator = BinaryCalculatorApp()
 calculator.run()

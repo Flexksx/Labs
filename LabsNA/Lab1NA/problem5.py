@@ -1,3 +1,5 @@
+from math import sin,cos,log,exp
+
 def hybrid_secant_bisection(f, a, b, tol, max_iter):
     iter_count = 0
     x0 = a
@@ -21,7 +23,7 @@ def hybrid_secant_bisection(f, a, b, tol, max_iter):
     return x1
 
 def f(x):
-    return x**2-4*x
+    return exp(x)-x**3+2*x**4
 
 root = hybrid_secant_bisection(f, 0, 3, 1e-6, 100)
 print(root)

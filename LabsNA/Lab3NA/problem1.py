@@ -1,13 +1,13 @@
 import numpy as np
 
 # Define the coefficients of the linear equations as a list of arrays
-coefficients = [np.array([[2, -1]]), np.array([[3, 2]]), np.array([[1, 1]]), np.array([[4, -1]]), np.array([[1, -3]])]
+A = [np.array([[2, -1]]), np.array([[3, 2]]), np.array([[1, 1]]), np.array([[4, -1]]), np.array([[1, -3]])]
 
 # Define the constants of the linear equations as a list
-constants = [4, 7, 3, 1, -2]
+b = [4, 7, 3, 1, -2]
 
 # Solve each equation separately and store the solutions
-solutions = [np.linalg.lstsq(coef, [const], rcond=None)[0] for coef, const in zip(coefficients, constants)]
+solutions = [np.linalg.lstsq(coef, [const], rcond=None)[0] for coef, const in zip(A, b)]
 
 # Convert the solutions list to a numpy array
 solutions = np.array(solutions)

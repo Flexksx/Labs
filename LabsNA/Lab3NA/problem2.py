@@ -15,23 +15,23 @@ numbers = np.array([
 # Compute eigenvalues and eigenvectors
 eigenvalues, eigenvectors = np.linalg.eig(numbers)
 
-# Find the index of the dominant eigenvalue
-dominant_index = np.argmax(np.abs(eigenvalues))
+# Find the index of the influential eigenvalue
+influential_index = np.argmax(np.abs(eigenvalues))
 
-# Retrieve the dominant eigenvalue and its corresponding eigenvector
-dominant_eigenvalue = eigenvalues[dominant_index]
-dominant_eigenvector = eigenvectors[:, dominant_index]
+# Retrieve the influential eigenvalue and its corresponding eigenvector
+influential_eigenvalue = eigenvalues[influential_index]
+influential_eigenvector = eigenvectors[:, influential_index]
 
-# Print the dominant eigenvalue and its corresponding eigenvector
-print(f"The most dominant person is {names[dominant_index]}, with the Eigenvalue = {dominant_eigenvalue}")
-print(" and corresponding Eigenvector:", dominant_eigenvector)
+# Print the influential eigenvalue and its corresponding eigenvector
+print("The most influential person is ",names[influential_index],", with the Eigenvalue =",influential_eigenvalue)
+print(" and corresponding Eigenvector:")
+print(influential_eigenvector)
 print()
 
 # Print all eigenvalues and eigenvectors
 for i, (eigval, eigvec) in enumerate(zip(eigenvalues, eigenvectors.T), start=1):
-    print("-------------------------------------------------------------------")
-    print(f"Eigenvalue λ{i}:")
-    print(eigval)
+    print("\n")
+    print(f"Eigenvalue lambda{i}:" ,eigval)
     print(f"Eigenvector v{i}:")
     print(eigvec)
     print()
@@ -42,13 +42,13 @@ eigenvalues = eigenvalues[sort_indices]
 eigenvectors = eigenvectors[:, sort_indices]
 
 # Print the sorted eigenvalues
-print("-------------------------------------------------------------------")
-print("Eigenvalues sorted:")
+print("\n")
+print("Sorted eigenvalues:")
 for eigenvalue in eigenvalues:
     print(eigenvalue)
 print()
 
 # Print the sorted eigenvectors
-print("Eigenvectors sorted:")
+print("Sorted eigenvectors:")
 for eigenvector in eigenvectors.T:
     print(eigenvector)
