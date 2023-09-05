@@ -1,1 +1,0 @@
-# vscode-haskell-config
