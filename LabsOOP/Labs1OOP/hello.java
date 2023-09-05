@@ -1,4 +1,4 @@
-package LabsOOP1;
+package Labs1OOP;
 
 public class hello {
     public static void main(String[] args) {
