@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "lab1",
+            "request": "launch",
+            "mainClass": "Labs1OOP.lab1",
+            "projectName": "Labs_ff3bc1fb"
+        },
+        {
+            "type": "java",
             "name": "HelloWorld",
             "request": "launch",
             "mainClass": "LabsOOP1.HelloWorld",
