@@ -1,8 +1,13 @@
 public class lab1 {
     public static void main(String[] args) {
-        BankAccount ba = new BankAccount("Vaniusha", 10, "694201337");
-        ba.deposit(100);
-        ba.showBalance();
+        BankAccount ba1 = new BankAccount("Vaniusha", 10, "694201337");
+        ba1.deposit(100);
+        ba1.showBalance();
+        BankAccount ba2 = new BankAccount("Jora", 20, "42992323");
+        ba2.deposit(50);
+        ba2.blockAccount();
+        ba1.transferFunds(ba2, 20);
+
     }
 }
 
@@ -11,7 +16,7 @@ class BankAccount {
     private String AccountNumber;
     private String OwnerName;
     private String OwnerPhoneNumber;
-    private boolean CanTransfer;
+    private boolean CanTransfer=true;
 
     public BankAccount(String _Name, float _Balance, String _AccountNumber) {
         this.Balance = _Balance;
@@ -86,8 +91,15 @@ class BankAccount {
         this.CanTransfer = canTransfer;
     }
 
-    public boolean getCanTransfer() {
+    public boolean getCanTransfer(){
         return this.CanTransfer;
+    }
+
+    public void blockAccount() {
+        this.CanTransfer =false;
+    }
+    public void unlockAccount(){
+        this.CanTransfer=true;
     }
 
     public void setOwnerPhoneNumber(String ownerPhoneNumber) {
