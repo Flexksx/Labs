@@ -11,11 +11,26 @@ class BankAccount {
     private String AccountNumber;
     private String OwnerName;
     private String OwnerPhoneNumber;
+    private boolean CanTransfer;
 
     public BankAccount(String _Name, float _Balance, String _AccountNumber) {
         this.Balance = _Balance;
         this.OwnerName = _Name;
         this.AccountNumber = _AccountNumber;
+    }
+
+    public void transferFunds(BankAccount reciever, float amount) {
+        float current = getBalance();
+        if (current >= amount && reciever.getCanTransfer()) {
+            reciever.deposit(amount);
+            this.withdraw(amount);
+        }
+        else if(current<amount){
+            System.err.println("Not enough funds.");
+        }
+        else if(!reciever.getCanTransfer()){
+            System.err.println("Reciever cannot recieve transfers.");
+        }
     }
 
     public void deposit(float amount) {
@@ -27,48 +42,55 @@ class BankAccount {
         float current = getBalance();
         if (current >= amount) {
             setBalance(current - amount);
-        }
-        else System.out.println("Not enough funds");
+        } else
+            System.out.println("Not enough funds");
     }
 
-    public void showBalance(){
-        System.out.println("Current balance: "+getBalance());
-    }
-    
-    public void showOwnerName(){
-        System.out.println("Owner name: "+getOwnerName());
+    public void showBalance() {
+        System.out.println("Current balance: " + getBalance());
     }
 
+    public void showOwnerName() {
+        System.out.println("Owner name: " + getOwnerName());
+    }
 
     public float getBalance() {
-        return Balance;
+        return this.Balance;
     }
 
     public String getAccountNumber() {
-        return AccountNumber;
+        return this.AccountNumber;
     }
 
     public String getOwnerName() {
-        return OwnerName;
+        return this.OwnerName;
     }
 
     public String getOwnerPhoneNumber() {
-        return OwnerPhoneNumber;
+        return this.OwnerPhoneNumber;
     }
 
     public void setAccountNumber(String accountNumber) {
-        AccountNumber = accountNumber;
+        this.AccountNumber = accountNumber;
     }
 
     public void setBalance(float balance) {
-        Balance = balance;
+        this.Balance = balance;
     }
 
     public void setOwnerName(String ownerName) {
-        OwnerName = ownerName;
+        this.OwnerName = ownerName;
+    }
+
+    public void setCanTransfer(boolean canTransfer) {
+        this.CanTransfer = canTransfer;
+    }
+
+    public boolean getCanTransfer() {
+        return this.CanTransfer;
     }
 
     public void setOwnerPhoneNumber(String ownerPhoneNumber) {
-        OwnerPhoneNumber = ownerPhoneNumber;
+        this.OwnerPhoneNumber = ownerPhoneNumber;
     }
 }
